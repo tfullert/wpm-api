@@ -1,0 +1,16 @@
+# ----------------------------------------------------------------------------
+# WPM API Libraries
+# ----------------------------------------------------------------------------
+
+Introduction
+These libraries provide an Object Oriented interface to Neustar's WPM APIs.
+With these libraries you can create, modify, and delete objects on WPM.  
+Objects such as: services, maintenance windows, and scripts.  Also, you can
+pull data from monitoring services, RUM beacons, and load tests.  For more
+information please see the API documentation at: 
+
+http://apidocs.wpm.neustar.biz
+
+More documentation coming soon!
+
+# ----------------------------------------------------------------------------
