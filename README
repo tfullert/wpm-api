@@ -13,4 +13,22 @@ http://apidocs.wpm.neustar.biz
 
 More documentation coming soon!
 
+Bugs in underlying API
+This is a list of bugs or issues that I've seen in the underlying WPM API.
+
+* The 'script' API service doesn't require the API version number whereas
+  other API services (ex: 'monitor', 'rum') do.  This is being handled by
+  my API classes but should be consistent across all calls to the API.
+
+* The 'update' method for the 'script' API service requires that you include
+  all the parameters that describe a script.  So, for example, if I just want
+  to update the description of a script I have to start by getting the script
+  and then modifying the description parameter and upload.  It would be
+  preferred if I could just submit the description parameter, the API would
+  update the description while leaving all other parameters as is.
+
+* The 'delete' method for the 'script' API service doesn't return any data
+  on success.  All other API calls return data indicating the result of the
+  API call.
+
 # ----------------------------------------------------------------------------
