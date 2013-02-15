@@ -38,7 +38,7 @@ class Client:
 	# -------------------------------------------------------------------------
 	# Override string representation of Client object.
 	def __str__(self):
-		return '[Client: %s, %s, %s, %s, %s]' % (self.key, self.secret, self.service, self.method, self.httpMethod)
+		return '[%s: %s, %s, %s, %s, %s]' % (self.__class__.__name__, self.key, self.secret, self.service, self.method, self.httpMethod)
 
 	# -------------------------------------------------------------------------
 	# Perform an HTTP DELETE. 

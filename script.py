@@ -24,7 +24,6 @@ class Script(Client):
 	# -------------------------------------------------------------------------
 	# Override string representation of Script object.
 	def __str__(self):
-		# TODO: Need to update this to print 'Script', not 'Client'
 		return Client.__str__(self)
 
 	# -------------------------------------------------------------------------
