@@ -132,29 +132,33 @@ if __name__ == '__main__':
 
 	import json
 	import time
+	import string
+	import random
 
 	# Variables for testing	
 	key		= '220.1.dHlsZXI.dHlsZXI.e7DE31kYiQ2D0JZP6UmRGsGboKQYCDIal1INCg'
 	secret	= 'tXBGIBK5'
 
+	# Create a random service name
+	svcName	= ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
+
 	# Monitoring service parameters
 	serviceParams = {
-		'name'			: 'myServiceTest',
+		'name'			: svcName,
 		'description'	: 'This is a test service',
-		'interval'		: 60,
+		'interval'		: 1,
 		'testScript'	: 'default_script',
 		'locations'		: 'washingtondc,sanjose,london',
 	}
 
 	# Dates for getting raw data
 	dateParams = {
-		'startDate'	: '2013-02-03',
-		'endDate'	: '2013-02-04',
+		'startDate'	: '2013-02-15',
+		'endDate'	: '2013-02-15',
 	}
 
 	# Store service ID for testing
-	serviceId = ''
-
+	serviceId 	= ''
 
 	# Test __init__
 	print '**** TEST: __init__'
@@ -186,6 +190,12 @@ if __name__ == '__main__':
 	jsonObj		= json.loads(response.text)
 	newDesc		= jsonObj.get('data', {}).get('items', [])[0].get('description', '')
 	print 'Updated Description:', newDesc	
+
+	# Test getMonitorSample
+	# TODO: Need to fix Client.__doGet so that it can append additional parameters to URL for sample calls
+	print '**** TEST: getMonitorSamples'
+	response	= monitorClient.getMonitorSamples(serviceId, dateParams)
+	print response.text
 	
 	# Test deleteMonitor
 	print '**** TEST: deleteMonitor'

@@ -19,6 +19,8 @@ class Client:
 
 	wpmAPIBase		= 'http://api.neustar.biz/performance/'
 	wpmAPIVersion	= '1.0'
+
+	debug			= 0
 	
 	# -------------------------------------------------------------------------
 	# Create a new Client object.
@@ -68,6 +70,9 @@ class Client:
 		url		= Client.wpmAPIBase + self.service + '{}'.format('' if self.method.startswith('script') else '/' + Client.wpmAPIVersion)
 		url		= url + '{}'.format('/' + self.method if self.method else '')
 		url		= url + '?apikey=' + self.key + '&sig=' + self.signature() 
+
+		if self.debug:
+			print 'URL:', url
 		
 		return url
 	
@@ -126,8 +131,8 @@ if __name__ == '__main__':
 	import random
 
 	# Variables for testing
-	secret 	= '[SECRET]'
-	key		= '[KEY]'
+	key 	= '220.1.dHlsZXI.dHlsZXI.e7DE31kYiQ2D0JZP6UmRGsGboKQYCDIal1INCg'
+	secret	= 'tXBGIBK5'
 
 	svcName	= ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
 	params 	= {

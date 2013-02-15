@@ -100,8 +100,8 @@ if __name__ == '__main__':
 	import json
 
 	# Variables for testing
-	key 	= '[KEY]'
-	secret	= '[SECRET]'
+	key 	= '220.1.dHlsZXI.dHlsZXI.e7DE31kYiQ2D0JZP6UmRGsGboKQYCDIal1INCg'
+	secret	= 'tXBGIBK5'
 
 	scriptParams = {
 		"name"				:"MY TEST SCRIPT",
