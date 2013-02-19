@@ -20,7 +20,7 @@ class Client:
 	wpmAPIBase		= 'http://api.neustar.biz/performance/'
 	wpmAPIVersion	= '1.0'
 
-	debug			= 0
+	debug			= 1
 	
 	# -------------------------------------------------------------------------
 	# Create a new Client object.
@@ -64,12 +64,16 @@ class Client:
 
 	# -------------------------------------------------------------------------
 	# Construct URL.
-	def __constructURL(self):
+	def __constructURL(self, data=''):
 
 		# For some odd reason, the 'script' method does not require an API version number		
 		url		= Client.wpmAPIBase + self.service + '{}'.format('' if self.method.startswith('script') else '/' + Client.wpmAPIVersion)
 		url		= url + '{}'.format('/' + self.method if self.method else '')
 		url		= url + '?apikey=' + self.key + '&sig=' + self.signature() 
+
+		# Attach additional parameters for GET requests
+		if self.httpMethod == 'GET' and data:
+			url = url + "&" + "&".join("%s=%s" % item for item in data.items())
 
 		if self.debug:
 			print 'URL:', url
@@ -103,7 +107,7 @@ class Client:
 	# 
 	# data - parameter should be provided when performing a POST or a PUT
 	def call(self, data=''):
-		url		= self.__constructURL()		
+		url		= self.__constructURL(data)		
 		results = ''
 		
 		try:
@@ -131,8 +135,8 @@ if __name__ == '__main__':
 	import random
 
 	# Variables for testing
-	key 	= '220.1.dHlsZXI.dHlsZXI.e7DE31kYiQ2D0JZP6UmRGsGboKQYCDIal1INCg'
-	secret	= 'tXBGIBK5'
+	key 	= '[KEY]'
+	secret	= '[SECRET]'
 
 	svcName	= ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
 	params 	= {
@@ -167,7 +171,7 @@ if __name__ == '__main__':
 
 	# Test call	
 	print '**** TEST: call'
-	print client3.call(params)
+	print client3.call()
 
 	# Test setters
 	print '**** TEST: setters'
@@ -179,8 +183,8 @@ if __name__ == '__main__':
 	client1.setHttpMethod('fakeHttpMethod')
 	print client1
 
-	# NOTE: Mangled names used for internal methods/attributes (i.e. __methodName).  You would
-	# normally not use these methods as they are meant to be internal to the class.
+	# NOTE: Mangled names used for internal methods/attributes (i.e. __methodName).  
+	# You would normally not use these methods as they are meant to be internal to the class.
 	
 	# Test __constructURL
 	print '**** TEST: __constructURL'
@@ -189,6 +193,13 @@ if __name__ == '__main__':
 	client3.setMethod('locations')
 	print client3._Client__constructURL()
 
+	# And...Test __constructURL with parameters
+	print '**** TEST: __constructURL (with params)'
+	client3.setService('monitor')
+	client3.setHttpMethod('get')
+	client3.setMethod('locations')
+	print client3._Client__constructURL({'key1':'value1','key2':'value2'})
+	
 	# Test __doPost
 	print '**** TEST: __doPost'
 	client3.setService('monitor')

@@ -101,7 +101,7 @@ class Monitor(Client):
 	# API interaction to get aggregate monitoring data for a monitor.
 	#
 	# monitorId - ID of the monitoring service.
-	# params - Dictionary that provides startDate and endDate values.
+	# params - Dictionary that provides startDate, endDate & frequency values.
 	def getAggregateMonitorData(self, monitorId, params):
 		self.setService('monitor')
 		self.setMethod(monitorId + '/aggregate')
@@ -136,8 +136,8 @@ if __name__ == '__main__':
 	import random
 
 	# Variables for testing	
-	key		= '220.1.dHlsZXI.dHlsZXI.e7DE31kYiQ2D0JZP6UmRGsGboKQYCDIal1INCg'
-	secret	= 'tXBGIBK5'
+	key		= '[KEY]'
+	secret	= '[SECRET]'
 
 	# Create a random service name
 	svcName	= ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
@@ -152,10 +152,19 @@ if __name__ == '__main__':
 	}
 
 	# Dates for getting raw data
-	dateParams = {
-		'startDate'	: '2013-02-15',
-		'endDate'	: '2013-02-15',
+	now			= time.localtime()
+	today		= time.strftime('%Y-%m-%d', now)
+	dateParams	= {
+		'startDate'	: today,
+		'endDate'	: today,
 	}
+
+	# TODO: This service ID is for testing the API calls that get sample data.  
+	# If you use the service that is created as part of the other tests you'll have to
+	# include a rather long sleep (for a 1 minute monitoring a sleep of 4 minutes wasn't
+	# sufficient).  I recommend setting up a service in your account that is always on for
+	# testing purposes.  Then set the testService value to the monitor ID for that service.
+	testService = '[EXISTING SERVICEID]'
 
 	# Store service ID for testing
 	serviceId 	= ''
@@ -192,11 +201,27 @@ if __name__ == '__main__':
 	print 'Updated Description:', newDesc	
 
 	# Test getMonitorSample
-	# TODO: Need to fix Client.__doGet so that it can append additional parameters to URL for sample calls
 	print '**** TEST: getMonitorSamples'
-	response	= monitorClient.getMonitorSamples(serviceId, dateParams)
+	response	= monitorClient.getMonitorSamples(testService, dateParams)
+	jsonObj		= json.loads(response.text)
+	sampleId	= jsonObj.get('data', {}).get('items', [])[0].get('id', '')
+	print 'Got a sample ID:', sampleId
+
+	# Test getRawMonitorSample
+	print '**** TEST: getRawMonitorSample'
+	response	= monitorClient.getRawMonitorSample(testService, sampleId)
+	print response.text
+
+	# Test getAggregateMonitorData
+	print '**** TEST: getAggregateMonitorData'
+	dateParams['frequency'] = 'hour'
+	response	= monitorClient.getAggregateMonitorData(testService, dateParams)
 	print response.text
 	
+	print '**** TEST: getMonitorSummary'
+	response	= monitorClient.getMonitorSummary(testService)
+	print response.text
+
 	# Test deleteMonitor
 	print '**** TEST: deleteMonitor'
 	response	= monitorClient.deleteMonitor(serviceId)
