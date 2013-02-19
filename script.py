@@ -73,7 +73,7 @@ class Script(Client):
 	# params - A dictionary containing the parameters for the script.
 	# fileLoc - A location on disk of a script to use.
 	def updateScript(self, scriptId, params, fileLoc):
-		params['scriptBody']	= self.__readScriptFile(fileLoc)
+		params['scriptBody']	= self.__readScriptFile(fileLoc)		
 		params['id']			= scriptId				
 
 		self.setService('script')
