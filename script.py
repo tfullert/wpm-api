@@ -45,7 +45,7 @@ class Script(Client):
 	# API interaction to get details of a script on the WPM platform.
 	#
 	# scriptId - The id of the script from the WPM platform.
-	def getScript(self, scriptId):
+	def getScript(self, scriptId=''):
 		self.setService('script')
 		self.setMethod('script/' + scriptId)
 		self.setHttpMethod('GET')
