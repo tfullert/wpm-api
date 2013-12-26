@@ -134,10 +134,11 @@ if __name__ == '__main__':
 	import time
 	import string
 	import random
+	from tester import Tester
 
 	# Variables for testing	
-	key		= '[KEY]'
-	secret	= '[SECRET]'
+	key		= Tester.wpmAPIKey
+	secret	= Tester.wpmAPISecret
 
 	# Create a random service name
 	svcName	= ''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(8))
@@ -164,7 +165,7 @@ if __name__ == '__main__':
 	# include a rather long sleep (for a 1 minute monitoring a sleep of 4 minutes wasn't
 	# sufficient).  I recommend setting up a service in your account that is always on for
 	# testing purposes.  Then set the testService value to the monitor ID for that service.
-	testService = '[EXISTING SERVICEID]'
+	testService = '383b86b85d2411e3a8d89848e167c3b7'
 
 	# Store service ID for testing
 	serviceId 	= ''

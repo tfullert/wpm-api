@@ -10,6 +10,7 @@
 # Author: Tyler Fullerton
 # =============================================================================
 from client import Client
+import os
 
 class Script(Client):
 
@@ -57,8 +58,10 @@ class Script(Client):
 	#
 	# params - A dictionary containing the parameters for the script.
 	# fileLoc - A location on disk of a script to use.
-	def uploadScript(self, params, fileLoc):
-		params['scriptBody'] = self.__readScriptFile(fileLoc)
+	def uploadScript(self, params, fileLoc=''):
+		
+		if fileLoc and os.path.exists(fileLoc): 		
+			params['scriptBody'] = self.__readScriptFile(fileLoc)
 
 		self.setService('script')
 		self.setMethod('script')
@@ -73,7 +76,7 @@ class Script(Client):
 	# params - A dictionary containing the parameters for the script.
 	# fileLoc - A location on disk of a script to use.
 	def updateScript(self, scriptId, params, fileLoc):
-		params['scriptBody']	= self.__readScriptFile(fileLoc)		
+		params['scriptBody']	= self.__readScriptFile(fileLoc)
 		params['id']			= scriptId				
 
 		self.setService('script')
@@ -98,10 +101,11 @@ class Script(Client):
 if __name__ == '__main__':
 
 	import json
+	from tester import Tester
 
-	# Variables for testing
-	key 	= '[KEY]'
-	secret	= '[SECRET]'
+	# Variables for testing	
+	key		= Tester.wpmAPIKey
+	secret	= Tester.wpmAPISecret
 
 	scriptParams = {
 		"name"				:"MY TEST SCRIPT",
@@ -113,7 +117,7 @@ if __name__ == '__main__':
 	scriptBody = '''
 		var webDriver = test.openBrowser();
 		test.beginTransaction();
-		test.beginStep("Monitor example.com");
+		test.beginStep("Monitor example.com (from test script)");
 		webDriver.get("http://www.example.com");
 		test.endStep();
 		test.endTransaction();
@@ -121,13 +125,6 @@ if __name__ == '__main__':
 
 	testFile = 'myScript.js'
 	
-	try:	
-		testScript = open(testFile, 'w')
-		testScript.write(scriptBody)
-		testScript.close() 
-	except IOError:
-		print 'Could not create test file!'
-
 	# Test __init__
 	print '**** TEST: __init__'
 	scriptClient = Script(key, secret)
@@ -150,6 +147,15 @@ if __name__ == '__main__':
 	print 'SCRIPT ID:', scriptId
 	print response.text
 
+	# Test uploadScript (without file)
+	print '**** TEST: uploadScript (without file)'
+	scriptParams['scriptBody'] = scriptBody
+	response	= scriptClient.uploadScript(scriptParams)
+	jsonObj		= json.loads(response.text)
+	scriptId2	= jsonObj.get('data', {}).get('script', {}).get('id', '')
+	print 'SCRIPT ID (2):', scriptId2
+	print response.text
+
 	# Test updateScript
 	print '**** TEST: updateScript'
 	scriptParams['description'] = 'This is my UPDATED test description'
@@ -164,4 +170,9 @@ if __name__ == '__main__':
 	# Test deleteScript
 	print '**** TEST: deleteScript'
 	response = scriptClient.deleteScript(scriptId)
+	print response.text
+
+	# Delete SCRIPT ID (2)
+	print 'Clean up...'
+	response = scriptClient.deleteScript(scriptId2)
 	print response.text
