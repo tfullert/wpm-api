@@ -40,7 +40,7 @@ class MaintenanceWindow(Client):
 	#   * duration: How long (in minutes) the maintenance window will last.
 	def createMaintenanceWindow(self, params):
 		self.setService('maintenance')
-		self.setMethod(self.wpmAPIVersion)
+		self.setMethod('')
 		self.setHttpMethod('POST')
 		return self.call(params)
 
@@ -48,7 +48,7 @@ class MaintenanceWindow(Client):
 	# API interaction to list all maintenance windows for an account.
 	def listMaintenanceWindows(self):
 		self.setService('maintenance')
-		self.setMethod(self.wpmAPIVersion)
+		self.setMethod('')
 		self.setHttpMethod('GET')
 		return self.call()
 
@@ -58,7 +58,7 @@ class MaintenanceWindow(Client):
 	# maintenanceId - The ID value of the maintenance window to retrieve.
 	def getMaintenanceWindow(self, maintenanceId):
 		self.setService('maintenance')
-		self.setMethod(self.wpmAPIVersion + '/' + maintenanceId)
+		self.setMethod(maintenanceId)
 		self.setHttpMethod('GET')
 		return self.call()
 
@@ -76,7 +76,7 @@ class MaintenanceWindow(Client):
 	#   * duration: How long (in minutes) the maintenance window will last.
 	def updateMaintenanceWindow(self, maintenanceId, params):
 		self.setService('maintenance')
-		self.setMethod(self.wpmAPIVersion + '/' + maintenanceId)
+		self.setMethod(maintenanceId)
 		self.setHttpMethod('PUT')
 		return self.call(params)
 
@@ -84,7 +84,7 @@ class MaintenanceWindow(Client):
 	# API interaction to delete a maintenance window.
 	def deleteMaintenanceWindow(self, maintenanceId):
 		self.setService('maintenance')
-		self.setMethod(self.wpmAPIVersion + '/' + maintenanceId)
+		self.setMethod(maintenanceId)
 		self.setHttpMethod('DELETE')
 		return self.call()
 	

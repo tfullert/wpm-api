@@ -66,17 +66,13 @@ class Client:
 	# Construct URL.
 	def __constructURL(self, data=''):
 
-		# TODO: Need to update this section.  Probably will move (entirely) the function
-		# of inserting the API version to the various modules since there doesn't seem to 
-		# be much consistency on that point (see: script, monitor, load).
-		# For some odd reason, the 'script' method does not require an API version number	
-		if self.method.startswith('instanttest') or self.service.startswith('load') or self.service.startswith('maintenance') or self.service.startswith('rum'):
-			url = Client.wpmAPIBase + self.service + '/' + self.method
-		else:
-			url	= Client.wpmAPIBase + self.service + '{}'.format('' if self.method.startswith('script') else '/' + Client.wpmAPIVersion)
-			url	= url + '{}'.format('/' + self.method if self.method else '')
+		url = Client.wpmAPIBase + self.service + '/' + Client.wpmAPIVersion
 		
-		url		= url + '?apikey=' + self.key + '&sig=' + self.signature() 
+		if self.method:
+			url = url + '/' + self.method
+
+		
+		url = url + '?apikey=' + self.key + '&sig=' + self.signature() 
 
 		# Attach additional parameters for GET requests
 		if self.httpMethod == 'GET' and data:

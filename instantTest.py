@@ -34,8 +34,8 @@ class InstantTest(Client):
 	#   * url: URL to test.
 	#   * callback: Callback URL to post results to.
 	def createInstantTestJob(self, params):
-		self.setService('tools')
-		self.setMethod('instanttest/' + self.wpmAPIVersion)
+		self.setService('tools/instanttest')
+		self.setMethod('')
 		self.setHttpMethod('POST')
 		return self.call(params)
 
@@ -44,8 +44,8 @@ class InstantTest(Client):
 	#
 	# testId - ID value of an instant test job. 
 	def getInstantTestJob(self, testId):
-		self.setService('tools')
-		self.setMethod('instanttest/' + self.wpmAPIVersion + '/' + testId)
+		self.setService('tools/instanttest')
+		self.setMethod(testId)
 		self.setHttpMethod('GET')
 		return self.call()
 
@@ -55,8 +55,8 @@ class InstantTest(Client):
 	# testId - ID value of an instant test job.
 	# location - Location where test was run from.
 	def getInstantTestJobByLocation(self, testId, location):
-		self.setService('tools')
-		self.setMethod('instanttest/' + self.wpmAPIVersion + '/' + testId + '/' + locationId)
+		self.setService('tools/instanttest')
+		self.setMethod(testId + '/' + locationId)
 		self.setHttpMethod('GET')
 		return self.call()
 	

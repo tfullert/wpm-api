@@ -10,6 +10,6 @@ class Tester:
 
 	# Update with your API Key & Secret.
 	# This will be used by the testing code in the modules.
-	wpmAPIKey		= '[PUT API KEY HERE]'
-	wpmAPISecret	= '[PUT API SECRET HERE]'
+	wpmAPIKey = '[API KEY HERE]'
+	wpmAPISecret = '[API SECRET HERE]'
 

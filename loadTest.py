@@ -52,7 +52,7 @@ class LoadTest(Client):
 	# API interaction to find out the username associated with API key/secret.
 	def whoAmI(self):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/whoami')
+		self.setMethod('whoami')
 		self.setHttpMethod('GET')
 		return self.call()
 
@@ -64,7 +64,7 @@ class LoadTest(Client):
 	#  * callback: A javaScript function to send results to.
 	def getListOfTestsAsJSON(self, params):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/list/mostRecent')
+		self.setMethod('list/mostRecent')
 		self.setHttpMethod('GET')
 		return self.call(params)
 
@@ -75,7 +75,7 @@ class LoadTest(Client):
 	#  * limit: The number of tests to return.
 	def getListOfTests(self, limit):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/list')
+		self.setMethod('list')
 		self.setHttpMethod('GET')
 		return self.call()
 
@@ -86,7 +86,7 @@ class LoadTest(Client):
 	# tagName - The tag to apply to the load test.
 	def addTag(self, loadTestId, tagName):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/' + str(loadTestId) + '/tag/' + tagName)
+		self.setMethod('/' + str(loadTestId) + '/tag/' + tagName)
 		self.setHttpMethod('PUT')
 		return self.call()
 
@@ -97,7 +97,7 @@ class LoadTest(Client):
 	# tagName - The tag to remove from the load test.
 	def removeTag(self, loadTestId, tagName):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/' + str(loadTestId) + '/tag/' + tagName)
+		self.setMethod('/' + str(loadTestId) + '/tag/' + tagName)
 		self.setHttpMethod('DELETE')
 		return self.call()
 
@@ -107,7 +107,7 @@ class LoadTest(Client):
 	# loadTestId - The ID of the load test to get.
 	def getLoadTest(self, loadTestId):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/id/' + str(loadTestId))
+		self.setMethod('id/' + str(loadTestId))
 		self.setHttpMethod('GET')
 		return self.call()
 
@@ -117,7 +117,7 @@ class LoadTest(Client):
 	# loadTestId - The ID of the load test to delete.
 	def deleteLoadTest(self, loadTestId):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/' + str(loadTestId) + '/delete')
+		self.setMethod(str(loadTestId) + '/delete')
 		self.setHttpMethod('DELETE')
 		return self.call()
 
@@ -127,7 +127,7 @@ class LoadTest(Client):
 	# loadTestId - The ID of the load test to pause.
 	def pauseLoadTest(self, loadTestId):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/' + str(loadTestId) + '/pause')
+		self.setMethod(str(loadTestId) + '/pause')
 		self.setHttpMethod('PUT')
 		return self.call()
 
@@ -137,7 +137,7 @@ class LoadTest(Client):
 	# loadTestId - The ID of the load test to resume.
 	def resumeLoadTest(self, loadTestId):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/' + str(loadTestId) + '/resume')
+		self.setMethod(str(loadTestId) + '/resume')
 		self.setHttpMethod('PUT')
 		return self.call()
 
@@ -153,7 +153,7 @@ class LoadTest(Client):
 	#  * parts: The test plan.
 	def scheduleLoadTest(self, params):
 		self.setService('load')
-		self.setMethod(self.wpmAPIVersion + '/schedule')
+		self.setMethod('schedule')
 		self.setHttpMethod('POST')
 		return self.call(params)
 

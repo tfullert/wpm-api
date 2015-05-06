@@ -48,7 +48,7 @@ class Script(Client):
 	# scriptId - The id of the script from the WPM platform.
 	def getScript(self, scriptId=''):
 		self.setService('script')
-		self.setMethod('script/' + scriptId)
+		self.setMethod(scriptId)
 		self.setHttpMethod('GET')
 
 		return self.call()
@@ -64,7 +64,7 @@ class Script(Client):
 			params['scriptBody'] = self.__readScriptFile(fileLoc)
 
 		self.setService('script')
-		self.setMethod('script')
+		self.setMethod('')
 		self.setHttpMethod('POST')
 
 		return self.call(params)
@@ -80,7 +80,7 @@ class Script(Client):
 		params['id']			= scriptId				
 
 		self.setService('script')
-		self.setMethod('script/' + scriptId)
+		self.setMethod(scriptId)
 		self.setHttpMethod('PUT')
 
 		return self.call(params)
@@ -91,7 +91,7 @@ class Script(Client):
 	# scriptId - The id of the script from the WPM platform.
 	def deleteScript(self, scriptId):
 		self.setService('script')
-		self.setMethod('script/' + scriptId)
+		self.setMethod(scriptId)
 		self.setHttpMethod('DELETE')
 
 		return self.call()

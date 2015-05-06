@@ -33,7 +33,7 @@ class RUM(Client):
 	#  * beaconName: Name of the beacon to create.
 	def createBeacon(self, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/beacon')
+		self.setMethod('beacon')
 		self.setHttpMethod('POST')
 		return self.call(params)
 
@@ -41,7 +41,7 @@ class RUM(Client):
 	# API interaction to list beacons.
 	def listBeacons(self):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/beacon')
+		self.setMethod('beacon')
 		self.setHttpMethod('GET')
 		return self.call()
 
@@ -49,7 +49,7 @@ class RUM(Client):
 	# API interaction to update a beacon.
 	def updateBeacon(self, beaconId, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/beacon/' + beaconId)
+		self.setMethod('beacon/' + beaconId)
 		self.setHttpMethod('PUT')
 		return self.call(params)
 
@@ -57,7 +57,7 @@ class RUM(Client):
 	# API interaction to delete a beacon.
 	def deleteBeacon(self, beaconId):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/beacon/' + beaconId)
+		self.setMethod('beacon/' + beaconId)
 		self.setHttpMethod('DELETE')
 		return self.call()
 
@@ -70,7 +70,7 @@ class RUM(Client):
 	#  * allbeacons: Flag to get summary for all beacons (1) or just one (0).
 	def getPerformanceSummaryOnRecentData(self, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/data/summary')
+		self.setMethod('data/summary')
 		self.setHttpMethod('GET')
 		return self.call(params)
 
@@ -82,7 +82,7 @@ class RUM(Client):
 	#  * minutes: Number of minutes (between 1 and 60) to get data for.
 	def getRecentTimeSeriesData(self, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/data/ts/recent')
+		self.setMethod('data/ts/recent')
 		self.setHttpMethod('GET')
 		return self.call(params)
 
@@ -96,7 +96,7 @@ class RUM(Client):
 	#  * type: Day level (daily) or minute level data.
 	def getTimeSeriesData(self, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/data/ts')
+		self.setMethod('data/ts')
 		self.setHttpMethod('GET')
 		return self.call(params)
 
@@ -119,7 +119,7 @@ class RUM(Client):
 	#  * jserr: Filter samples by JS error filename or string (regex).
 	def getRawData(self, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/data/raw')
+		self.setMethod('data/raw')
 		self.setHttpMethod('GET')
 		return self.call(params)
 
@@ -141,7 +141,7 @@ class RUM(Client):
 	#  * jserr: Filter samples by JS error filename or string (regex).
 	def getAnalysisData(self, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/data/analysis')
+		self.setMethod('data/analysis')
 		self.setHttpMethod('GET')
 		return self.call(params)
 
@@ -154,7 +154,7 @@ class RUM(Client):
 	#  * endDate: The end date to get data for (ISO 8601 formatted datetime).
 	def getObjectLevelTimeSeriesData(self, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/data/ol/ts')
+		self.setMethod('data/ol/ts')
 		self.setHttpMethod('GET')
 		return self.call(params)
 
@@ -168,7 +168,7 @@ class RUM(Client):
 	#  * groupby: Key to group the data by (resource, domain, location_resource, location_domain).	
 	def getObjectLevelOutliersData(self, params):
 		self.setService('rum')
-		self.setMethod(self.wpmAPIVersion + '/data/ol/outlier')
+		self.setMethod('data/ol/outlier')
 		self.setHttpMethod('GET')
 		return self.call(params)
 
