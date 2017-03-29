@@ -17,7 +17,7 @@ import requests
 
 class Client:
 
-	wpmAPIBase		= 'http://api.neustar.biz/performance/'
+	wpmAPIBase		= 'http://api.sec.neustar.biz/performance/'
 	wpmAPIVersion	= '1.0'
 
 	debug			= 1
